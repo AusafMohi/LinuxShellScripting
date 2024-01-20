@@ -1,0 +1,278 @@
+#!/bin/bash
+
+#-------------------------------------------------------------------------------
+# Assignment: Assignment 13B
+#
+# Program Name: AM_assignment_13B
+# 
+#
+# Purpose: The purpose of this program is
+# to display the scores for bowling teams.
+#
+# Author: Ausaf M.
+# 
+#
+# Created: 11/30/2022
+#
+#------------------------------------------------------------------------------
+
+echo -e "Enter the team number on Lane 1: \c"
+read teamleft
+grep "^${teamleft}|" bowlers > leftbowlers
+
+i=1
+while read -r line
+do
+	lname=`echo "$line" | cut -f2 -d"|"`
+	lhcp=`echo "$line" | cut -f3 -d"|"`
+	ltpins=`echo "$line" | cut -f4 -d"|"`
+	case $i in
+		1) lname1="$lname"
+		lhcp1="$lhcp"
+		ltpins1="$ltpins" ;;
+
+		2) lname2="$lname"
+                lhcp2="$lhcp"
+                ltpins2="$ltpins" ;;
+
+		3)  lname3="$lname"
+                lhcp3="$lhcp"
+                ltpins3="$ltpins" ;;
+	        
+		4) lname4="$lname"
+                lhcp4="$lhcp"
+                ltpins4="$ltpins" ;;
+
+                5)  lname5="$lname"
+                lhcp5="$lhcp"
+                ltpins5="$ltpins" ;;
+
+
+	esac
+	i=`expr $i + 1`
+done < leftbowlers
+echo $lname1
+echo $lname2
+echo $lname3
+echo $lname4
+echo $lname5
+
+echo -e "Enter the team number on Lane 2: \c"
+read teamright
+
+grep "^${teamright}|" bowlers > rightbowlers
+
+i=1
+while read -r line
+do
+        rname=`echo "$line" | cut -f2 -d"|"`
+        rhcp=`echo "$line" | cut -f3 -d"|"`
+        rtpins=`echo "$line" | cut -f4 -d"|"`
+        case $i in
+                1) rname1="$rname"
+                rhcp1="$rhcp"
+                rtpins1="$rtpins" ;;
+
+                2) rname2="$rname"
+                rhcp2="$rhcp"
+                rtpins2="$rtpins" ;;
+
+                3)  rname3="$rname"
+                rhcp3="$rhcp"
+                rtpins3="$rtpins" ;;
+
+                4) rname4="$rname"
+                rhcp4="$rhcp"
+                rtpins4="$rtpins" ;;
+
+                5)  rname5="$rname"
+                rhcp5="$rhcp"
+                rtpins5="$rtpins" ;;
+
+
+
+	esac
+	i=`expr $i + 1`
+done < rightbowlers
+echo $rname1
+echo $rname2
+echo $rname3
+echo $rname4
+echo $rname5
+
+
+i=1
+while [ $i -le 5 ]
+do
+	case $i in
+	      1) echo -e "\nEnter scores for ${lname1}" ;;
+	      2) echo -e "\nEnter scores for ${lname2}" ;;
+	      3) echo -e "\nEnter scores for ${lname3}" ;;
+	      4) echo -e "\nEnter scores for ${lname4}" ;;
+              5) echo -e "\nEnter scores for ${lname5}" ;;
+	esac
+	
+	echo -e "\tEnter Game 1 score: \c"
+	read g1
+
+	echo -e "\tEnter Game 2 score: \c"
+	read g2
+
+	echo -e "\tEnter Game 3 score: \c"
+	read g3
+
+	total=`expr $g1 + $g2 + $g3`
+	
+	case $i in
+	      1) lp1g1=$g1 ; lp1g2=$g2 ; lp1g3=$g3 ; lp1tot=$total ;;
+	      2) lp2g1=$g1 ; lp2g2=$g2 ; lp2g3=$g2 ; lp2tot=$total ;;
+	      3) lp3g1=$g1 ; lp3g2=$g2 ; lp3g3=$g2 ; lp3tot=$total ;;
+	      4) lp4g1=$g1 ; lp4g2=$g2 ; lp4g3=$g2 ; lp4tot=$total ;;
+	      5) lp5g1=$g1 ; lp5g2=$g2 ; lp5g3=$g2 ; lp5tot=$total ;;
+	esac
+	i=`expr $i + 1`
+done
+
+i=1
+while [ $i -le 5 ]
+do
+        case $i in
+              1) echo -e "\nEnter scores for ${rname1}" ;;
+              2) echo -e "\nEnter scores for ${rname2}" ;;
+              3) echo -e "\nEnter scores for ${rname3}" ;;
+              4) echo -e "\nEnter scores for ${rname4}" ;;
+              5) echo -e "\nEnter scores for ${rname5}" ;;
+        esac
+
+        echo -e "\tEnter Game 1 score: \c"
+        read g1
+
+        echo -e "\tEnter Game 2 score: \c"
+        read g2
+
+        echo -e "\tEnter Game 3 score: \c"
+        read g3
+
+        total=`expr $g1 + $g2 + $g3`
+
+        case $i in
+              1) rp1g1=$g1 ; rp1g2=$g2 ; rp1g3=$g3 ; rp1tot=$total ;;
+	      2) rp2g1=$g1 ; rp2g2=$g2 ; rp2g3=$g3 ; rp2tot=$total ;;
+	      3) rp3g1=$g1 ; rp3g2=$g2 ; rp3g3=$g3 ; rp3tot=$total ;;
+              4) rp4g1=$g1 ; rp4g2=$g2 ; rp4g3=$g3 ; rp4tot=$total ;;
+  	      5) rp5g1=$g1 ; rp5g2=$g2 ; rp5g3=$g3 ; rp5tot=$total ;;
+	esac 
+	i=`expr $i + 1`
+done
+
+today=`date +%D`
+echo -e "\n\n BEDROCK MONDAY NIGHT MEN'S LEAGUE ${today}"
+printf "TEAM: %-16s (%2d) LANE: 1 TEAM: %-16s (%2d) LANE 2\n" ${teamleftname} ${teamleft} ${teamrightname} ${teamright}
+echo "-----------------------------------------------------------------------------------"
+echo "HCP NAME G1 G2 G3 TOT HCP NAME G1 G2 G3 TOT"
+echo "-----------------------------------------------------------------------------------"
+i=1
+while [ $i -le 5 ]
+do
+	case $i in
+	   1) printf "%3d %-15s " ${lhcp1} ${lname1}
+	      printf "%3d %3d %3d %3d " ${lp1g1} ${lp1g2} ${lp1g3} ${lp1tot}
+
+	      printf "%3d %-15s " ${rhcp1} ${rname1}
+	      printf "%3d %3d %3d %3d\n" ${rp1g1} ${rp1g2} ${rp1g3} ${rp1tot}
+  
+	      lg1tot=`expr $lg1tot + $lp1g1`
+	      lg2tot=`expr $lg2tot + $lp1g2`
+	      lg3tot=`expr $lg3tot + $lp1g3`
+	      ltothcp=`expr $ltothcp + $lhcp1`
+
+	      rg1tot=`expr $rg1tot + $rp1g1`
+	      rg2tot=`expr $rg2tot + $rp1g2`
+	      rg3tot=`expr $rg3tot + $rp1g3`
+	      rtothcp=`expr $rtothcp + $rhcp1` ;;
+	      
+	   2) printf "%3d %-15s " ${lhcp2} ${lname2}
+              printf "%3d %3d %3d %3d " ${lp2g1} ${lp2g2} ${lp2g3} ${lp2tot}
+
+              printf "%3d %-15s " ${rhcp2} ${rname2}
+              printf "%3d %3d %3d %3d\n" ${rp2g1} ${rp2g2} ${rp2g3} ${rp2tot}
+
+              lg1tot=`expr $lg1tot + $lp2g1`
+              lg2tot=`expr $lg2tot + $lp2g2`
+              lg3tot=`expr $lg3tot + $lp2g3`
+              ltothcp=`expr $ltothcp + $lhcp2`
+
+              rg1tot=`expr $rg1tot + $rp2g1`
+              rg2tot=`expr $rg2tot + $rp2g2`
+              rg3tot=`expr $rg3tot + $rp2g3`
+              rtothcp=`expr $rtothcp + $rhcp2` ;;
+
+	    3)printf "%3d %-15s " ${lhcp3} ${lname3}
+              printf "%3d %3d %3d %3d " ${lp3g1} ${lp3g2} ${lp3g3} ${lp3tot}
+
+              printf "%3d %-15s " ${rhcp3} ${rname3}
+              printf "%3d %3d %3d %3d\n" ${rp2g1} ${rp2g2} ${rp2g3} ${rp2tot}
+
+              lg1tot=`expr $lg1tot + $lp3g1`
+              lg2tot=`expr $lg2tot + $lp3g2`
+              lg3tot=`expr $lg3tot + $lp3g3`
+              ltothcp=`expr $ltothcp + $lhcp3`
+
+              rg1tot=`expr $rg1tot + $rp3g1`
+              rg2tot=`expr $rg2tot + $rp3g2`
+              rg3tot=`expr $rg3tot + $rp3g3`
+              rtothcp=`expr $rtothcp + $rhcp3` ;;
+
+	    4)printf "%3d %-15s " ${lhcp4} ${lname4}
+              printf "%3d %3d %3d %3d " ${lp4g1} ${lp4g2} ${lp4g3} ${lp4tot}
+
+              printf "%3d %-15s " ${rhcp4} ${rname4}
+              printf "%3d %3d %3d %3d\n" ${rp4g1} ${rp4g2} ${rp4g3} ${rp4tot}
+
+              lg1tot=`expr $lg1tot + $lp4g1`
+              lg2tot=`expr $lg2tot + $lp4g2`
+              lg3tot=`expr $lg3tot + $lp4g3`
+              ltothcp=`expr $ltothcp + $lhcp4`
+
+              rg1tot=`expr $rg1tot + $rp4g1`
+              rg2tot=`expr $rg2tot + $rp4g2`
+              rg3tot=`expr $rg3tot + $rp4g3`
+              rtothcp=`expr $rtothcp + $rhcp4` ;;
+
+            5)printf "%3d %-15s " ${lhcp5} ${lname5}
+              printf "%3d %3d %3d %3d " ${lp5g1} ${lp5g2} ${lp5g3} ${lp5tot}
+
+              printf "%3d %-15s " ${rhcp5} ${rname5}
+              printf "%3d %3d %3d %3d\n" ${rp5g1} ${rp5g2} ${rp5g3} ${rp5tot}
+
+              lg1tot=`expr $lg1tot + $lp5g1`
+              lg2tot=`expr $lg2tot + $lp5g2`
+              lg3tot=`expr $lg3tot + $lp5g3`
+              ltothcp=`expr $ltothcp + $lhcp5`
+
+              rg1tot=`expr $rg1tot + $rp5g1`
+              rg2tot=`expr $rg2tot + $rp5g2`
+              rg3tot=`expr $rg3tot + $rp5g3`
+              rtothcp=`expr $rtothcp + $rhcp5` ;;
+
+
+
+	esac
+	i=`expr $i + 1`
+ done
+
+leftscore1=`expr $ltothcp + $lg1tot`
+leftscore2=`expr $ltothcp + $lg2tot`
+leftscore3=`expr $ltothcp + $lg3tot`
+lefttotal=`expr $leftscore1 + $leftscore2 + $leftscore3`
+
+
+rightscore1=`expr $rtothcp + $rg1tot`
+rightscore2=`expr $rtothcp + $rg2tot`
+rightscore3=`expr $rtothcp + $rg3tot`
+righttotal=`expr $rightscore1 + $rightscore2 + $rightscore3`
+
+printf "\n          TOTAL   %4d %4d %4d %4d " $leftscore1 $leftscore2 $leftscore3 $lefttotal
+printf "       TOTAL    %4d %4d %4d %4d\n" $rightscore1 $rightscore2 $rightscore3 $righttotal
+
+echo "       GAMES WON             x          GAMES WON       X    X         X"
